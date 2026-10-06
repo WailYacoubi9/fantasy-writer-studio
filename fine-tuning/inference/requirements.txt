@@ -1,0 +1,10 @@
+# Install the GPU build of PyTorch first:
+# python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+diffusers
+transformers
+accelerate
+bitsandbytes
+peft
+sentencepiece
+protobuf
+huggingface_hub[cli]

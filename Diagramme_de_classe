@@ -1,0 +1,105 @@
+@startuml
+
+'====== PostgreSQL Schema ======
+package "Relational DB (PostgreSQL)" {
+  class User {
+    +id: UUID
+    +username: String
+    +email: String
+    +tokenBalance: int
+  }
+
+  class PaymentTransaction {
+    +id: UUID
+    +amount: float
+    +tokenAmount: int
+    +date: Date
+    +paymentStatus: String
+  }
+
+  class TokenUsageLog {
+    +id: UUID
+    +tokensUsed: int
+    +operationType: String
+    +timestamp: Date
+  }
+
+  class FavoriteVoice {
+    +id: UUID
+    +voiceName: String
+    +voiceUrl: String
+    +voiceId1: String
+    +voiceWeight1:int
+    +voiceId2: String
+    +voiceWeight2:int
+  }
+
+  User "1" --> "0..*" PaymentTransaction
+  User "1" --> "0..*" TokenUsageLog
+  User "1" --> "0..*" FavoriteVoice
+}
+
+'====== MongoDB Schema ======
+package "Document DB (MongoDB)" {
+  class Book {
+    +_id: ObjectId
+    +userId: UUID
+    +title: String
+    +description: String
+    +createdAt: Date
+  }
+
+  class Chapter {
+    +_id: ObjectId
+    +title: String
+    +order: int
+  }
+
+  class Page {
+    +_id: ObjectId
+    +chapterId: ObjectId
+    +textContent: Text
+    +pageNumber: int
+  }
+
+  class ImagePrompt {
+    +_id: ObjectId
+    +pageId: ObjectId
+    +selectedText: String
+    +imagePath: String
+  }
+
+  class AudioVersion {
+    +_id: ObjectId
+    +audioFilePath: String
+    +voiceId: String
+  }
+
+  class Summary {
+    +_id: ObjectId
+    +text: Text
+    +generatedAt: Date
+  }
+
+  class BookSummary {
+    +_id: ObjectId
+    +text: Text
+    +generatedAt: Date
+  }
+
+  class AudioBook {
+    +_id: ObjectId
+    +audioFilePath: String
+    +generatedAt: Date
+  }
+
+  Book "1" --> "0.1" AudioBook
+  Book "1" --> "0.1" BookSummary
+  Book "1" --> "0..*" Chapter
+  Chapter "1" --> "1..*" Page
+  Page "1" --> "0..*" ImagePrompt
+  Chapter "1" --> "0..*" AudioVersion
+  Chapter "1" --> "0..*" Summary
+}
+
+@enduml
