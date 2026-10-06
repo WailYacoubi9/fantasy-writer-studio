@@ -3,7 +3,7 @@
 diffusers
 transformers
 accelerate
-bitsandbytes
+gguf
 peft
 sentencepiece
 protobuf
